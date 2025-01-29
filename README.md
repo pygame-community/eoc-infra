@@ -1,2 +1,4 @@
-# wclib
-A dynamic repository hosting the 'wclib' package, used for our Weekly Challenges events.
+# eoc-infra
+
+This repository contains the infrastructure for the Era of Challenges (EOC) project.
+

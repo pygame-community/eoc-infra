@@ -1,0 +1,96 @@
+# This file is a part of the source code for eoc.libs.core.
+# This project has been licensed under the MIT license.
+# Copyright (c) 2025-present pygame-community
+
+
+[project]
+name = "eoc-infra"
+version = "0.1.0"
+description = "A monorepo of libraries for the Era of Challenges event."
+requires-python = ">=3.12"
+dependencies = ["eoc", "eoclib"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+]
+
+[tool.uv.sources]
+eoc = { workspace = true }
+eoclib = { workspace = true }
+
+[tool.uv.workspace]
+members = ["packages/*"]
+
+[project.optional-dependencies]
+dev = ["pytest~=8.3.4", "pytest-cov~=6.0.0", "ruff~=0.9.3", "uv~=0.5.24"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/eoc_infra"]
+
+# Use Ruff to replace Black, isort, and Flake8
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = [
+    "E", # pycodestyle errors
+    "W", # pycodestyle warnings
+    "F", # pyflakes
+    "C", # flake8-comprehensions
+    "B", # flake8-bugbear
+]
+ignore = [
+    "E501", # line too long, handled by ruff format
+    "B008", # do not perform function calls in argument defaults
+    "B028", # No explicit `stacklevel` keyword argument found (?)
+    "C901", # too complex
+]
+
+unfixable = ["B"] # Don't bother trying to fix flake8-bugbear
+
+# Ignore `E402` (import violations) in all `__init__.py` files, and in select subdirectories.
+[tool.ruff.lint.per-file-ignores]
+"__init__.py" = ["E402"]
+"**/{tests,docs,tools}/*" = ["E402"]
+
+
+[tool.tox]
+legacy_tox_ini = """
+[tox]
+minversion = 4.16.0
+envlist = py312,format,lint,tests
+
+[testenv]
+skip_install = True
+install_command = pip install -U {opts} {packages}
+setenv = VIRTUAL_ENV={envdir}
+deps = -r{toxinidir}/requirements.txt
+       -r{toxinidir}/requirements-test.txt
+       -r{toxinidir}/requirements-dev.txt
+
+[testenv:tests]
+deps =
+    {[testenv]deps}
+    pytest
+commands = pytest src --doctest-modules --cov=src
+
+[testenv:format]
+deps = ruff
+commands = ruff format --check .
+
+[testenv:lint]
+deps = ruff
+commands = ruff check .
+
+[testenv:ruff]
+description = Run Ruff for linting and formatting
+deps = ruff
+commands =
+    ruff format --check .
+    ruff check .
+"""

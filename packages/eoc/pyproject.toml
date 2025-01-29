@@ -1,0 +1,15 @@
+[project]
+name = "eoc"
+version = "0.1.0"
+description = "A CLI Tool to facilitate easy submission of EOC (Era of Challenges) entries."
+readme = "README.md"
+authors = [{ name = "pygame-community" }]
+requires-python = ">=3.12"
+dependencies = ["eoclib", "click~=8.1.8"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/eoc"]
