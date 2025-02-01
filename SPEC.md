@@ -1,6 +1,6 @@
 NOTE: I use colons as a delimiter between GH users and one of ther repositories, e.g. `ddorn:eoc-dev`.
 
-This proposal separates WeeklyChallenges ( <https://github.com/pygame-community/LegacyWeeklyChallenges> ) into 6 separate repositories and rebrands it as Era of Challenges ( <https://github.com/pygame-community/EraOfChallenges> ).
+This proposal separates WeeklyChallenges ( <https://github.com/pygame-community/LegacyWeeklyChallenges> ) into 5 separate repositories and rebrands it as Era of Challenges ( <https://github.com/pygame-community/EraOfChallenges> ).
 
 
 ## Delegating the "development repository" responsibilty.
@@ -15,7 +15,9 @@ git remote add upstream "https://github.com/pygame-community/eoc-dev"
 git fetch upstream
 git switch eoc006_platformer/template
 git switch -c eoc006_platformer/ddorn # will create a new branch and switch to it
-``` 
+```
+
+The steps above can be done by a CLI too
 
 The overall structure for a template branch would be as follows:
 
