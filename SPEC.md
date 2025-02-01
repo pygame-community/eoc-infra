@@ -17,7 +17,7 @@ git switch eoc006_platformer/template
 git switch -c eoc006_platformer/ddorn # will create a new branch and switch to it
 ```
 
-The steps above can be done by a CLI too
+The steps above can be implemented in a CLI too, in the form of `python -m eoc init 6` (prepare challenge 6 locally) .
 
 The overall structure for a template branch would be as follows:
 
