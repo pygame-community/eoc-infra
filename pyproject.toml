@@ -1,4 +1,4 @@
-# This file is a part of the source code for eoc.libs.core.
+# This file is a part of the source code for eoc-infra.
 # This project has been licensed under the MIT license.
 # Copyright (c) 2025-present pygame-community
 
@@ -8,7 +8,10 @@ name = "eoc-infra"
 version = "0.1.0"
 description = "A monorepo of libraries for the Era of Challenges event."
 requires-python = ">=3.12"
-dependencies = ["eoc", "eoclib"]
+dependencies = [
+    "eoc @ git+https://github.com/pygame-community/eoc-infra.git#subdirectory=packages/eoc",
+    "eoclib @ git+https://github.com/pygame-community/eoc-infra.git#subdirectory=packages/eoclib",
+]
 classifiers = [
     "Programming Language :: Python :: 3",
     "License :: OSI Approved :: MIT License",
@@ -22,7 +25,7 @@ eoclib = { workspace = true }
 members = ["packages/*"]
 
 [project.optional-dependencies]
-dev = ["pytest~=8.3.4", "pytest-cov~=6.0.0", "ruff~=0.9.3", "uv~=0.5.24"]
+dev = ["pytest~=8.3.4", "pytest-cov~=6.0.0", "ruff~=0.14.10", "uv~=0.5.24"]
 
 [build-system]
 requires = ["hatchling"]
@@ -31,10 +34,13 @@ build-backend = "hatchling.build"
 [tool.hatch.build.targets.wheel]
 packages = ["src/eoc_infra"]
 
+[tool.hatch.metadata]
+allow-direct-references = true
+
 # Use Ruff to replace Black, isort, and Flake8
 [tool.ruff]
 line-length = 88
-target-version = "py312"
+target-version = "py313"
 
 [tool.ruff.lint]
 select = [

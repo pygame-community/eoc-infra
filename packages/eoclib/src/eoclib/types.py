@@ -1,21 +1,4 @@
-from typing import TypedDict
+from collections.abc import Mapping
+from typing import Any
 
-from eoclib.callbacks import EOCWareMainloop, EOCWareSetup, EOCWareThumbnail
-
-
-class WareConfig(TypedDict):
-    pass
-
-
-class WareData(TypedDict):
-    pass
-
-
-class EOCWareGlobals(TypedDict):
-    data: WareData
-
-
-class EOCWareCallbacks(TypedDict):
-    setup: EOCWareSetup
-    thumbnail: EOCWareThumbnail
-    mainloop: EOCWareMainloop
+type WareData = Mapping[str, Any]

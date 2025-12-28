@@ -1,17 +1,21 @@
-NOTE: I use colons as a delimiter between GH users and one of ther repositories, e.g. `ddorn:eoc-dev`.
+# Era of Challenges – Weekly Challenges Rebooted
+
+NOTE: I use colons as a delimiter between GH users and one of ther repositories, e.g. `ddorn:eoc-trials`.
 
 This proposal separates WeeklyChallenges ( <https://github.com/pygame-community/LegacyWeeklyChallenges> ) into 5 separate repositories and rebrands it as Era of Challenges ( <https://github.com/pygame-community/EraOfChallenges> ).
 
-## Delegating the "development repository" responsibilty
+## 1. Infrastructure
+
+### Delegating the "development repository" responsibilty
 
 `pygame-community:LegacyWeeklyChallenges` should no longer be the repository to fork to participate in era of challenges.
 
-Instead, a new GitHub repository should be created called `pygame-community:eoc-dev` . This allows people to simply instantiate a repository for working on challenges by forking it, which would come preconfigured with everything needed to work on specific challenges. As time passes, participants will be able to join new challenges by fetching new branches for those challenges. EOC challenge branches would be of the form `eoc<xxx>_challenge_name/template`  (`xxx` will be a three digit number with leading zeros if necessary, and can be continually expanded to more digits as needed), e.g. `eoc007_matrixrain/template`. These templates would be provided by challenge creators.
+Instead, a new GitHub repository should be created called `pygame-community:eoc-trials` . This allows people to simply instantiate a repository for working on challenges by forking it, which would come preconfigured with everything needed to work on specific challenges. As time passes, participants will be able to join new challenges by fetching new branches for those challenges. EOC challenge branches would be of the form `eoc<xxx>_challenge_name/template`  (`xxx` will be a three digit number with leading zeros if necessary, and can be continually expanded to more digits as needed), e.g. `eoc007_matrixrain/template`. These templates would be provided by challenge creators.
 
-To start working on a challenge inside a `<username>:eoc-dev` fork (e.g. `ddorn:eoc-dev`), a user would need to fetch the newest template branches from `eoc-dev`, e.g. `git fetch upstream`  (`upstream` is `pygame-community:eoc-dev`, while `origin` would be the fork of the form `<username>:eoc-dev`). They would then check-out their target template branch and make a new branch from it to work with, e.g.:
+To start working on a challenge inside a `<username>:eoc-trials` fork (e.g. `ddorn:eoc-trials`), a user would need to fetch the newest template branches from `eoc-trials`, e.g. `git fetch upstream`  (`upstream` is `pygame-community:eoc-trials`, while `origin` would be the fork of the form `<username>:eoc-trials`). They would then check-out their target template branch and make a new branch from it to work with, e.g.:
 
 ```sh
-git remote add upstream "https://github.com/pygame-community/eoc-dev"
+git remote add upstream "https://github.com/pygame-community/eoc-trials"
 git fetch upstream
 git switch eoc007_matrixrain/template
 git switch -c eoc007_matrixrain/ddorn # will create a new branch and switch to it
@@ -31,21 +35,21 @@ The overall structure for a template branch would be as follows:
   ┗ README.md             # contains challenge instructions
 ```
 
-## Delegating the "submission repository" responsibilty
+### Delegating the "submission repository" responsibilty
 
 `pygame-community:LegacyWeeklyChallenges` should no longer be the repository to use for challenge submissions.
 
-Instead, submission should occur by opening PRs to `pygame-community:eoc-submissions` from a fork of the form `<username>:eoc-dev`, tagged with their challenge number as a label and submitted in a timely manner. Submissions would introduce branches of the form `eoc<xxx>_challenge_name/<username>` (e.g. `eoc007_matrixrain/ddorn`)  into the `eoc-submissions` repository.
+Instead, submission should occur by opening PRs to `pygame-community:eoc-submissions` from a fork of the form `<username>:eoc-trials`, tagged with their challenge number as a label and submitted in a timely manner. Submissions would introduce branches of the form `eoc<xxx>_challenge_name/<username>` (e.g. `eoc007_matrixrain/ddorn`)  into the `eoc-submissions` repository.
 
-## Delegating the "Era of Challenges Library" responsibilty
+### Delegating the "Era of Challenges Library" responsibilty
 
 `pygame-community:LegacyWeeklyChallenges` should no longer be the repository that contains `wclib`.  Instead, 2 new repositories should be created called [`pygame-community:eoc-infra`](https://github.com/pygame-community/eoc-infra) and [`pygame-community:eoc.challenges`](https://github.com/pygame-community/eoc.challenges). The former will be a monorepo containing a helper CLI tool for submission called `eoc` and a library for managing challenge-agnostic infrastructure called `eoclib`, while the latter will host challenge-specific helper tools and assets on a separate branch per challenge.
 
-`eoc.challenges` will be a [namespace package](https://packaging.python.org/en/latest/guides/packaging-namespace-packages/), whose contained modules make use of `eoclib` inside `pygame-community:eoc-infra`, and host the code and assets for every challenge as they are downloaded by participants from GitHub for their challenge entries (assets like images and audio will be included in the package using a `MANIFEST.in` file and similar mechanisms: <https://python-packaging.readthedocs.io/en/latest/non-code-files.html>, <https://setuptools.pypa.io/en/stable/userguide/datafiles.html#package-data>). Each of those branches would be of the form `eoc<xxx>_challenge_name` (same as the challenge name). Installing them would look like this: `pip install "eoc.challenges.eoc007_matrixrain @ git+https://github.com/pygame-community/eoc.challenges@eoc007_matrixrain.git"`. These strings will be exposed inside template branches of `pygame-community:eoc-dev` in `requirements.txt` files.
+`eoc.challenges` will be a [namespace package](https://packaging.python.org/en/latest/guides/packaging-namespace-packages/), whose contained modules make use of `eoclib` inside `pygame-community:eoc-infra`, and host the code and assets for every challenge as they are downloaded by participants from GitHub for their challenge entries (assets like images and audio will be included in the package using a `MANIFEST.in` file and similar mechanisms: <https://python-packaging.readthedocs.io/en/latest/non-code-files.html>, <https://setuptools.pypa.io/en/stable/userguide/datafiles.html#package-data>). Each of those branches would be of the form `eoc<xxx>_challenge_name` (same as the challenge name). Installing them would look like this: `pip install "eoc.challenges.eoc007_matrixrain @ git+https://github.com/pygame-community/eoc.challenges@eoc007_matrixrain.git"`. These strings will be exposed inside template branches of `pygame-community:eoc-trials` in `requirements.txt` files.
 
 Era of Challenges challenge entries should import these editions as follows: `import eoc.challenges.eoc007_matrixrain as eoc007`. `eoc007.assets.audio` and `eoc007.assets.images` would both expose string constants that map to the assets, e.g. `eoc007.assets.images.PLAYER`.
 
-## Delegating the "Era of Challenges Client" responsibilty
+### Delegating the "Era of Challenges Client" responsibilty
 
 `pygame-community:EraOfChallenges` should only act as a "player" for playing Weekly Challenges. To avoid people having to download `pygame-community:eoc-submissions` or anything similar, the program would download challenge files on demand from GitHub (`https://github.com/pygame-community/pygame-ce/archive/refs/heads/eoc007_matrixrain/ddorn.zip`), and keep them around in a locally generated cache of the form `.eoccache/eoc<xxx>_challenge_name/<username>/*` .
 
@@ -70,6 +74,20 @@ To make this work, 3 requirements have to be met:
 
 3. Each challenge must have a corresponding branch in `pygame-community/eoc-submissions` called `eoc<xxx>_challenge_name/info`, which itself contains a `submitters.txt` file (queried as `https://cdn.jsdelivr.net/gh/pygame-community/eoc-submissions@eoc007_matrixrain/info/submitters.txt`) listing up GitHub usernames of users who submitted, in order to build links like `https://github.com/pygame-community/eoc-submissions/archive/refs/heads/eoc007_matrixrain/ddorn.zip` to download a user's submission code and `challenge.json`, with `eoc<xxx>_challenge_name/__init__.py` serving as the entry point for `EraOfChallenges` to load a user's submission as a module at runtime. This `submitters.txt` file would be automatically updated by a GitHub Action inside `pygame-community:eoc-submissions` that triggers on every PR merge with branch names matching `eoc<xxx>_challenge_name/<username>`, appending the submitter's GitHub username to the file if not already present.
 
+## 2. Application Model
+
+In Pygame Community lore, Era of Challenges represent Apprentices aiming to become legendary Guardians of Hisstellis (formerly called Finistellis the origin realm of pygame snake) by undertaking trials at challenges on otherworldly adventures created by the Event Forgers, to eventually be able to protect Hisstellis from supernatural threats.
+
+EraOfChallenges is a meta-application consisting of 3 parts:
+
+1. Challenges: Modules containing challenge-specific APIs and assets, e.g. `eoc007_matrixrain`.
+2. Trials: Modules containing attempts at specific challenges by participants, e.g. `ddorn`'s attempt at `eoc007_matrixrain`.
+3. World Runners: Applications that allow running trials of challenges.
+
+In essence, challenges are the game definitions and boilerplate, trials are the game content made by participants from a game template provided by the Event Forgers, and worlds are the game engines that run the game content, also forged by Event Forgers.
+
+(to be continued...)
+
 All in all, these changes would lead to a far more scalable future for Era of Challenges.
 
 ```mermaid
@@ -80,8 +98,8 @@ config:
 ---
 flowchart TB
  subgraph user_repo["Type: Repo"]
-        u_dev{{"user:eoc-dev"}}
-        u_dev_desc@{ label: "Holds a participant's code for challenges, branched per challenge (e.g. `user:eoc-dev:eoc007_matrixrain/ddorn`). Receives templates & infra via pulls. Submissions are PR'd to the community." }
+        u_dev{{"user:eoc-trials"}}
+        u_dev_desc@{ label: "Holds a participant's code for challenges, branched per challenge (e.g. `user:eoc-trials:eoc007_matrixrain/ddorn`). Receives templates & infra via pulls. Submissions are PR'd to the community." }
   end
  subgraph user_app["Type: Application"]
         u_app(["user:EraOfChallenges"])
@@ -112,7 +130,7 @@ flowchart TB
         c_challenges_desc@{ label: "Challenge-specific APIs and assets, one branch per challenge (e.g. `eoc007_matrixrain`)." }
   end
  subgraph dev_repo["Type: Repo"]
-        c_dev{{"pygame-community:eoc-dev"}}
+        c_dev{{"pygame-community:eoc-trials"}}
         c_dev_desc@{ label: "Template repository. Each challenge is a branch (e.g. `eoc007_matrixrain/template`)." }
   end
  subgraph submissions_repo["Type: Repo"]

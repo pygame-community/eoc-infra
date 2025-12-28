@@ -1,9 +1,22 @@
-from warelib.ware_callbacks import GeneratorWareCallback, WareCallback
+from collections.abc import Mapping
+from typing import Any, TypedDict
+
+from eoclib.callbacks import EOCWareMain, EOCWareReset, EOCWareSetup, EOCWareThumbnail
+from eoclib.types import WareData
 
 
-eoc_globals_callbacks_schema: dict[str, type] = {
-    "data": dict,
-    "setup": WareCallback,
-    "thumbnail": GeneratorWareCallback,
-    "mainloop": GeneratorWareCallback,
+class EOCWareLayout(TypedDict):
+    data: type[WareData]
+    setup: type[EOCWareSetup]
+    thumbnail: type[EOCWareThumbnail]
+    mainloop: type[EOCWareMain]
+    reset: type[EOCWareReset]
+
+
+eoc_globals_callbacks_schema: EOCWareLayout = {
+    "data": Mapping[str, Any],
+    "setup": EOCWareSetup,
+    "thumbnail": EOCWareThumbnail,
+    "mainloop": EOCWareMain,
+    "reset": EOCWareReset,
 }
