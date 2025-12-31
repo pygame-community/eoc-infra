@@ -1,4 +1,4 @@
-# eoc-infra
+# eoc-libraries
 
-This repository contains the infrastructure for the Era of Challenges (EOC) project.
+This repository contains the library infrastructure for the Era of Challenges (EOC) project.
 
