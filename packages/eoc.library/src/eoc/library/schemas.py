@@ -1,8 +1,8 @@
 from collections.abc import Mapping
 from typing import Any, TypedDict
 
-from eoclib.callbacks import EOCWareMain, EOCWareReset, EOCWareSetup, EOCWareThumbnail
-from eoclib.types import WareData
+from .callbacks import EOCWareMain, EOCWareReset, EOCWareSetup, EOCWareThumbnail
+from .types import WareData
 
 
 class EOCWareLayout(TypedDict):

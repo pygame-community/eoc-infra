@@ -1,25 +1,27 @@
-# This file is a part of the source code for eoc-infra.
+# This file is a part of the source code for eoc-libraries.
 # This project has been licensed under the MIT license.
 # Copyright (c) 2025-present pygame-community
 
 
 [project]
-name = "eoc-infra"
+name = "eoc-libraries"
 version = "0.1.0"
 description = "A monorepo of libraries for the Era of Challenges event."
 requires-python = ">=3.12"
 dependencies = [
-    "eoc @ git+https://github.com/pygame-community/eoc-infra.git#subdirectory=packages/eoc",
-    "eoclib @ git+https://github.com/pygame-community/eoc-infra.git#subdirectory=packages/eoclib",
+    "eoc.cli @ git+https://github.com/pygame-community/eoc-libraries.git#subdirectory=packages/eoc.cli",
+    "eoc.library @ git+https://github.com/pygame-community/eoc-libraries.git#subdirectory=packages/eoc.library",
 ]
 classifiers = [
-    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
     "License :: OSI Approved :: MIT License",
 ]
 
 [tool.uv.sources]
-eoc = { workspace = true }
-eoclib = { workspace = true }
+"eoc.cli" = { workspace = true }
+"eoc.library" = { workspace = true }
 
 [tool.uv.workspace]
 members = ["packages/*"]

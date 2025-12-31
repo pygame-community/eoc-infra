@@ -1,7 +1,7 @@
 import pygame
 from warelib.callbacks import GeneratorWareCallback, WareCallback
 
-from eoclib.types import WareData
+from .types import WareData
 
 
 class EOCWareSetup(WareCallback[[WareData], None]):

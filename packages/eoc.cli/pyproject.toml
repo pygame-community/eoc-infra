@@ -1,0 +1,25 @@
+[project]
+name = "eoc.cli"
+version = "0.1.0"
+description = "A CLI tool to interact with EOC (Era of Challenges) infrastructure and for event participants to develop challenge trials."
+requires-python = ">=3.12"
+dependencies = [
+    "pygame-ce>=2.5.2",
+    "eoc.library @ git+https://github.com/pygame-community/eoc-libraries.git#subdirectory=packages/eoc.library",
+]
+classifiers = [
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "License :: OSI Approved :: MIT License",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/eoc"]

@@ -1,6 +1,6 @@
 from typing import TypedDict
-from eoclib.callbacks import EOCWareSetup, EOCWareThumbnail, EOCWareMain, EOCWareReset
-from eoclib.types import WareData
+from .callbacks import EOCWareSetup, EOCWareThumbnail, EOCWareMain, EOCWareReset
+from .types import WareData
 from warelib import Ware
 
 

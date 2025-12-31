@@ -5,8 +5,8 @@ import pygame
 from warelib import WareCallback
 from warelib.decorators import reset as ware_reset
 
-from eoclib.callbacks import EOCWareMain, EOCWareSetup, EOCWareThumbnail
-from eoclib.types import WareData
+from .callbacks import EOCWareMain, EOCWareSetup, EOCWareThumbnail
+from .types import WareData
 
 
 def setup(func: Callable[[WareData], None]) -> EOCWareSetup:
