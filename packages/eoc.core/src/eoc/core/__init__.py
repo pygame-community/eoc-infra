@@ -1,10 +1,10 @@
-"""This file is a part of the source code for eoc.library.
+"""This file is a part of the source code for eoc.core.
 This project has been licensed under the MIT license.
 
 Copyright (c) 2025-present pygame-community
 """
 
-__title__ = "eoc.library"
+__title__ = "eoc.core"
 __author__ = "pygame-community"
 __license__ = "MIT"
 __copyright__ = "Copyright 2025-present pygame-community"

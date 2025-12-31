@@ -1,5 +1,5 @@
 [project]
-name = "eoc.library"
+name = "eoc.core"
 version = "0.1.0"
 description = "A library setting the foundation for EOC (Era of Challenges) infrastructure, based on the `warelib` library."
 requires-python = ">=3.12"
