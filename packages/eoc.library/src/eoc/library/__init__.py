@@ -12,4 +12,4 @@ __version__ = "0.1.0"
 
 
 from .callbacks import *  # noqa: F403
-from .ware import *  # noqa: F403
+from .trial import *  # noqa: F403

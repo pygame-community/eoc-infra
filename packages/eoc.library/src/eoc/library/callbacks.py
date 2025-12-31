@@ -1,24 +1,24 @@
 import pygame
 from warelib.callbacks import GeneratorWareCallback, WareCallback
 
-from .types import WareData
+from .types import TrialData
 
 
-class EOCWareSetup(WareCallback[[WareData], None]):
+class EOCTrialSetup(WareCallback[[TrialData], None]):
     pass
 
 
-class EOCWareThumbnail(
+class EOCTrialThumbnail(
     GeneratorWareCallback[[], None, tuple[pygame.Surface, list[pygame.Event]], None]
 ):
     pass
 
 
-class EOCWareMain(
+class EOCTrialMain(
     GeneratorWareCallback[[], None, tuple[pygame.Surface, list[pygame.Event]], None]
 ):
     pass
 
 
-class EOCWareReset(WareCallback[[], None]):
+class EOCTrialReset(WareCallback[[], None]):
     pass

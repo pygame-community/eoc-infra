@@ -1,22 +1,22 @@
-from collections.abc import Mapping
+from collections.abc import MutableMapping
 from typing import Any, TypedDict
 
-from .callbacks import EOCWareMain, EOCWareReset, EOCWareSetup, EOCWareThumbnail
-from .types import WareData
+from .callbacks import EOCTrialMain, EOCTrialReset, EOCTrialSetup, EOCTrialThumbnail
+from .types import TrialData
 
 
-class EOCWareLayout(TypedDict):
-    data: type[WareData]
-    setup: type[EOCWareSetup]
-    thumbnail: type[EOCWareThumbnail]
-    mainloop: type[EOCWareMain]
-    reset: type[EOCWareReset]
+class EOCTrialLayout(TypedDict):
+    data: type[TrialData]
+    setup: type[EOCTrialSetup]
+    thumbnail: type[EOCTrialThumbnail]
+    mainloop: type[EOCTrialMain]
+    reset: type[EOCTrialReset]
 
 
-eoc_globals_callbacks_schema: EOCWareLayout = {
-    "data": Mapping[str, Any],
-    "setup": EOCWareSetup,
-    "thumbnail": EOCWareThumbnail,
-    "mainloop": EOCWareMain,
-    "reset": EOCWareReset,
+eoc_globals_callbacks_schema: EOCTrialLayout = {
+    "data": MutableMapping[str, Any],
+    "setup": EOCTrialSetup,
+    "thumbnail": EOCTrialThumbnail,
+    "mainloop": EOCTrialMain,
+    "reset": EOCTrialReset,
 }

@@ -5,28 +5,28 @@ import pygame
 from warelib import WareCallback
 from warelib.decorators import reset as ware_reset
 
-from .callbacks import EOCWareMain, EOCWareSetup, EOCWareThumbnail
-from .types import WareData
+from .callbacks import EOCTrialMain, EOCTrialSetup, EOCTrialThumbnail
+from .types import TrialData
 
 
-def setup(func: Callable[[WareData], None]) -> EOCWareSetup:
-    return EOCWareSetup(func)
+def setup(func: Callable[[TrialData], None]) -> EOCTrialSetup:
+    return EOCTrialSetup(func)
 
 
 def thumbnail(
     func: Callable[
         ..., Generator[None, tuple[pygame.Surface, list[pygame.Event]], None]
     ],
-) -> EOCWareThumbnail:
-    return EOCWareThumbnail(func)
+) -> EOCTrialThumbnail:
+    return EOCTrialThumbnail(func)
 
 
 def mainloop(
     func: Callable[
         ..., Generator[None, tuple[pygame.Surface, list[pygame.Event]], None]
     ],
-) -> EOCWareMain:
-    return EOCWareMain(func)
+) -> EOCTrialMain:
+    return EOCTrialMain(func)
 
 
 def reset(func: Callable[[], None]) -> WareCallback[[], None]:
