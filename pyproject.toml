@@ -1,40 +1,53 @@
-# This file is a part of the source code for eoc-libraries.
+# This file is a part of the source code for eoc.core.
 # This project has been licensed under the MIT license.
 # Copyright (c) 2025-present pygame-community
 
 
 [project]
-name = "eoc-libraries"
+name = "eoc.core"
 version = "0.1.0"
-description = "A monorepo of libraries for the Era of Challenges event."
+description = "A library setting the foundation for EOC (Era of Challenges) infrastructure, based on the `warelib` library."
 requires-python = ">=3.12"
-dependencies = [
-    "eoc.cli @ git+https://github.com/pygame-community/eoc-libraries.git#subdirectory=packages/eoc.cli",
-    "eoc.core @ git+https://github.com/pygame-community/eoc-libraries.git#subdirectory=packages/eoc.core",
-]
 classifiers = [
     "Programming Language :: Python :: 3.12",
     "Programming Language :: Python :: 3.13",
     "Programming Language :: Python :: 3.14",
     "License :: OSI Approved :: MIT License",
 ]
+dependencies = [
+    "warelib @ git+https://github.com/pygame-community/warelib.git",
+    "pygame-ce>=2.5.2",
+    "pygame-gui>=0.6.13",
+]
 
-[tool.uv.sources]
-"eoc.cli" = { workspace = true }
-"eoc.core" = { workspace = true }
+[dependency-groups]
+test = ["pytest~=8.3.4", "pytest-cov~=6.0.0"]
+lint = ["ruff~=0.14.10", "pre-commit~=4.0"]
+dev = [
+    { include-group = "test" },
+    { include-group = "lint" },
+    "poethepoet~=0.32",
+]
 
-[tool.uv.workspace]
-members = ["packages/*"]
+[tool.poe]
+executor.type = "uv"
 
-[project.optional-dependencies]
-dev = ["pytest~=8.3.4", "pytest-cov~=6.0.0", "ruff~=0.14.10"]
+[tool.poe.tasks]
+test = "pytest src --doctest-modules --cov=src"
+fmt = "ruff format ."
+fmt-check = "ruff format --check ."
+isort = "ruff check --select I --fix ."
+lint = "ruff check ."
+lint-fix = "ruff check --fix ."
+formatlint = ["fmt", "isort", "lint"]
+check = ["fmt-check", "lint", "test"]
 
 [build-system]
 requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [tool.hatch.build.targets.wheel]
-packages = ["src/eoc_infra"]
+packages = ["src/eoc"]
 
 [tool.hatch.metadata]
 allow-direct-references = true
@@ -65,40 +78,3 @@ unfixable = ["B"] # Don't bother trying to fix flake8-bugbear
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["E402"]
 "**/{tests,docs,tools}/*" = ["E402"]
-
-
-[tool.tox]
-legacy_tox_ini = """
-[tox]
-minversion = 4.16.0
-envlist = py312,format,lint,tests
-
-[testenv]
-skip_install = True
-install_command = pip install -U {opts} {packages}
-setenv = VIRTUAL_ENV={envdir}
-deps = -r{toxinidir}/requirements.txt
-       -r{toxinidir}/requirements-test.txt
-       -r{toxinidir}/requirements-dev.txt
-
-[testenv:tests]
-deps =
-    {[testenv]deps}
-    pytest
-commands = pytest src --doctest-modules --cov=src
-
-[testenv:format]
-deps = ruff
-commands = ruff format --check .
-
-[testenv:lint]
-deps = ruff
-commands = ruff check .
-
-[testenv:ruff]
-description = Run Ruff for linting and formatting
-deps = ruff
-commands =
-    ruff format --check .
-    ruff check .
-"""

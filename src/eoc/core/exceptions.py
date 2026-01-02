@@ -1,5 +1,6 @@
 from warelib.exceptions import (
     AsyncWareCallbackEnded,
+    InvalidWareStructure,
     WareCallbackBegun,
     WareCallbackEnded,
     WareCallbackMustEnd,
@@ -50,7 +51,7 @@ class TrialCallbackNotBegun(WareCallbackNotBegun):
 EOCTrialCallbackNotBegun = TrialCallbackNotBegun
 
 
-class InvalidTrialStructure(ValueError):
+class InvalidTrialStructure(InvalidWareStructure):
     """Exception raised when a trial module structure is invalid"""
 
 

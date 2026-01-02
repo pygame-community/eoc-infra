@@ -1,0 +1,9 @@
+# See https://pre-commit.com for more information
+repos:
+  - repo: local
+    hooks:
+      - id: formatlint
+        name: formatlint
+        entry: uv run poe formatlint
+        language: system
+        pass_filenames: false

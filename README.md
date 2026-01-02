@@ -1,4 +1,3 @@
-# eoc-libraries
+# eoc.core
 
-This repository contains the library infrastructure for the Era of Challenges (EOC) project.
-
+A library setting the foundation for EOC (Era of Challenges) infrastructure, based on the `warelib` library.
